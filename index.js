@@ -1,17 +1,18 @@
 import { Server } from "socket.io";
 
 let clickCount = 0
+let userList = {}
 
 const io = new Server(3000, {
-    //options
-    cors: {
-        origin: "*",
-        methods: ["GET", "POST"]
-      }
+  //options
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"]
+  }
 });
 
 io.on("connection", (socket) => {
-  
+
   //create payload
   const payload = {
     totalClicks: clickCount
@@ -61,6 +62,20 @@ io.on("connection", (socket) => {
     console.log("resetClicks", payloadAsString)
     io.emit("someoneResetClicks", payloadAsString)
   });
+
+  // google create dynamic key for json object
+  //const key = 
+  //const obj = {[key]: any}
+
+  socket.on('nameUpdate', (msg) => {
+    
+    
+    
+
+
+  })
+
+  
 
 });
 
