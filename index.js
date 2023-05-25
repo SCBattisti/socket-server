@@ -63,19 +63,17 @@ io.on("connection", (socket) => {
     io.emit("someoneResetClicks", payloadAsString)
   });
 
-  // google create dynamic key for json object
-  //const key = 
-  //const obj = {[key]: any}
-
   socket.on('nameUpdate', (msg) => {
-    
-    
-    
+    const name = JSON.parse(msg)
+    const userObj = {}
 
+    userObj = {
+      id: socket.io,
+      friendlyName: name.customName 
+    }
 
+    userList.push(userObj)
+    
   })
-
-  
-
 });
 
