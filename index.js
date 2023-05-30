@@ -1,7 +1,8 @@
 import { Server } from "socket.io";
+import { findFriendlyName } from "./modules/giveUserName.js"
 
 let clickCount = 0
-let userList = {}
+let userList = []
 
 const io = new Server(3000, {
   //options
@@ -36,6 +37,8 @@ io.on("connection", (socket) => {
       whoClicked: socket.id
     }
 
+    findFriendlyName(userList, payload)
+
     //payload as string
     const payloadAsString = JSON.stringify(payload)
 
@@ -55,6 +58,8 @@ io.on("connection", (socket) => {
       whoClicked: socket.id
     }
 
+    findFriendlyName(userList, payload)
+
     //payload as string
     const payloadAsString = JSON.stringify(payload)
 
@@ -65,14 +70,15 @@ io.on("connection", (socket) => {
 
   socket.on('nameUpdate', (msg) => {
     const name = JSON.parse(msg)
-    const userObj = {}
+    let userObj = {}
 
     userObj = {
-      id: socket.io,
+      id: socket.id,
       friendlyName: name.customName 
     }
 
     userList.push(userObj)
+    console.log(userList)
     
   })
 });
